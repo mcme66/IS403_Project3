@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Ballroom Competition</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Ballroom Admin</a>
+      <div class="navbar-nav">
+        <a class="nav-link" href="/users">Users</a>
+        <a class="nav-link" href="/competitions">Competitions</a>
+        <a class="nav-link" href="/events">Events</a>
+        <a class="nav-link" href="/logout">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container mt-4">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2>Events</h2>
+  <a href="/events/add" class="btn btn-success">+ Add Event</a>
+</div>
+
+<table class="table table-striped shadow-sm">
+  <thead class="table-dark">
+    <tr>
+      <th>ID</th>
+      <th>Competition ID</th>
+      <th>Title</th>
+      <th>Start</th>
+      <th>End</th>
+      <th>Rounds</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% events.forEach(e => { %>
+    <tr>
+      <td><%= e.event_id %></td>
+      <td><%= e.competition_id || '-' %></td>
+      <td><%= e.title %></td>
+      <td><%= e.start_date_time ? new Date(e.start_date_time).toLocaleString() : '-' %></td>
+      <td><%= e.end_date_time ? new Date(e.end_date_time).toLocaleString() : '-' %></td>
+      <td><%= e.rounds || '-' %></td>
+      <td>
+        <a href="/events/edit/<%= e.event_id %>" class="btn btn-sm btn-warning">Edit</a>
+        <a href="/events/delete/<%= e.event_id %>" class="btn btn-sm btn-danger" onclick="return confirm('Delete this event?')">Delete</a>
+      </td>
+    </tr>
+  <% }) %>
+</tbody>
+</table>
+
+  </main>
+</body>
+</html>
