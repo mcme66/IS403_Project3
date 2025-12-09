@@ -24,7 +24,9 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h2>Events</h2>
-      <a href="/events/add" class="btn btn-success">+ Add Event</a>
+      <% if (user && user.isOrganizer) { %>
+        <a href="/events/add" class="btn btn-success">+ Add Event</a>
+        <% } %>
     </div>
 
     <table class="table table-striped shadow-sm">
@@ -61,9 +63,11 @@
               <%= e.rounds || '-' %>
             </td>
             <td>
-              <a href="/events/edit/<%= e.event_id %>" class="btn btn-sm btn-warning">Edit</a>
-              <a href="/events/delete/<%= e.event_id %>" class="btn btn-sm btn-danger"
-                onclick="return confirm('Delete this event?')">Delete</a>
+              <% if (user && user.isOrganizer) { %>
+                <a href="/events/edit/<%= e.event_id %>" class="btn btn-sm btn-warning">Edit</a>
+                <a href="/events/delete/<%= e.event_id %>" class="btn btn-sm btn-danger"
+                  onclick="return confirm('Delete this event?')">Delete</a>
+                <% } %>
             </td>
           </tr>
           <% }) %>
