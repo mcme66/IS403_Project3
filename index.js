@@ -257,12 +257,12 @@ app.get("/competitions", function (req, res) {
 });
 
 app.get("/competitions/add", function (req, res) {
-  res.render("competitions_form", { competition: {}, action: "/competitions/add" });
+  res.render("competitions_form", { competition: {}, action: "/competitions/add", user: req.session.user });
 });
 
 app.post("/competitions/add", function (req, res) {
   knex("competition").insert({
-    organizer_id: req.body.organizer_id || null,
+    organizer_id: (req.session.user && req.session.user.organizer_id) ? req.session.user.organizer_id : (req.body.organizer_id || null),
     location: req.body.location,
     sanctioned: req.body.sanctioned === "on"
   })
@@ -274,14 +274,14 @@ app.post("/competitions/add", function (req, res) {
 app.get("/competitions/edit/:id", function (req, res) {
   knex("competition").where("competition_id", req.params.id).first()
     .then(function (competition) {
-      res.render("competitions_form", { competition: competition, action: "/competitions/edit/" + req.params.id });
+      res.render("competitions_form", { competition: competition, action: "/competitions/edit/" + req.params.id, user: req.session.user });
     });
 });
 
 app.post("/competitions/edit/:id", function (req, res) {
   knex("competition").where("competition_id", req.params.id)
     .update({
-      organizer_id: req.body.organizer_id || null,
+      organizer_id: (req.session.user && req.session.user.organizer_id) ? req.session.user.organizer_id : (req.body.organizer_id || null),
       location: req.body.location,
       sanctioned: req.body.sanctioned === "on"
     })
@@ -307,10 +307,12 @@ app.get("/events", function (req, res) {
 });
 
 app.get("/events/add", function (req, res) {
+  if (!req.session.user || !req.session.user.isOrganizer) return res.status(403).send("Access denied");
   res.render("events_form", { event: {}, action: "/events/add" });
 });
 
 app.post("/events/add", function (req, res) {
+  if (!req.session.user || !req.session.user.isOrganizer) return res.status(403).send("Access denied");
   knex("event").insert({
     competition_id: req.body.competition_id || null,
     title: req.body.title,
@@ -324,6 +326,7 @@ app.post("/events/add", function (req, res) {
 });
 
 app.get("/events/edit/:id", function (req, res) {
+  if (!req.session.user || !req.session.user.isOrganizer) return res.status(403).send("Access denied");
   knex("event").where("event_id", req.params.id).first()
     .then(function (event) {
       res.render("events_form", { event: event, action: "/events/edit/" + req.params.id });
@@ -331,6 +334,7 @@ app.get("/events/edit/:id", function (req, res) {
 });
 
 app.post("/events/edit/:id", function (req, res) {
+  if (!req.session.user || !req.session.user.isOrganizer) return res.status(403).send("Access denied");
   knex("event").where("event_id", req.params.id)
     .update({
       competition_id: req.body.competition_id || null,
@@ -345,6 +349,7 @@ app.post("/events/edit/:id", function (req, res) {
 });
 
 app.get("/events/delete/:id", function (req, res) {
+  if (!req.session.user || !req.session.user.isOrganizer) return res.status(403).send("Access denied");
   knex("event").where("event_id", req.params.id).del()
     .then(function () {
       res.redirect("/events");
