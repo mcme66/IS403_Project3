@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Organizer Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Ballroom Admin</a>
+            <div class="navbar-nav">
+                <a class="nav-link" href="/users">Users</a>
+                <a class="nav-link" href="/competitions">Competitions</a>
+                <a class="nav-link active" href="#">Dashboard</a>
+                <a class="nav-link" href="/logout">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mt-4">
+        <h1>My Dashboard (Organizer)</h1>
+
+        <div class="card shadow-sm mt-4">
+            <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">My Competitions</h4>
+                <a href="/competitions/add" class="btn btn-light btn-sm">+ New Competition</a>
+            </div>
+            <div class="card-body">
+                <% competitions.forEach(comp=> { %>
+                    <div class="mb-4 border rounded p-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="mb-0">
+                                <%= comp.location %>
+                            </h5>
+                            <div>
+                                <a href="/competitions/<%= comp.competition_id %>" class="btn btn-sm btn-info">View
+                                    Details</a>
+                                <a href="/competitions/edit/<%= comp.competition_id %>"
+                                    class="btn btn-sm btn-warning">Edit</a>
+                            </div>
+                        </div>
+
+                        <h6 class="text-muted mt-3">Events:</h6>
+                        <ul class="list-group">
+                            <% const compEvents=events.filter(e=> e.competition_id === comp.competition_id); %>
+                                <% compEvents.forEach(e=> { %>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span>
+                                            <%= e.title %>
+                                        </span>
+                                        <div>
+                                            <span class="badge bg-secondary rounded-pill me-2">
+                                                <%= e.participant_count %> Participants
+                                            </span>
+                                            <a href="/events/<%= e.event_id %>/participants"
+                                                class="btn btn-sm btn-outline-primary">View/Manage</a>
+                                        </div>
+                                    </li>
+                                    <% }) %>
+                                        <% if (compEvents.length===0) { %>
+                                            <li class="list-group-item text-muted">No events created yet.</li>
+                                            <% } %>
+                        </ul>
+                    </div>
+                    <% }) %>
+                        <% if (competitions.length===0) { %>
+                            <p class="text-center">You haven't created any competitions yet.</p>
+                            <% } %>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
