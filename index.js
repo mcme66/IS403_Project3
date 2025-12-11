@@ -308,7 +308,7 @@ app.get("/events", function (req, res) {
 
 app.get("/events/add", function (req, res) {
   if (!req.session.user || !req.session.user.isOrganizer) return res.status(403).send("Access denied");
-  res.render("events_form", { event: {}, action: "/events/add" });
+  res.render("events_form", { event: {}, action: "/events/add", user: req.session.user});
 });
 
 app.post("/events/add", function (req, res) {
@@ -321,7 +321,7 @@ app.post("/events/add", function (req, res) {
     rounds: req.body.rounds
   })
     .then(function () {
-      res.redirect("/events");
+      res.redirect("/");
     });
 });
 
@@ -329,7 +329,7 @@ app.get("/events/edit/:id", function (req, res) {
   if (!req.session.user || !req.session.user.isOrganizer) return res.status(403).send("Access denied");
   knex("event").where("event_id", req.params.id).first()
     .then(function (event) {
-      res.render("events_form", { event: event, action: "/events/edit/" + req.params.id });
+      res.render("events_form", { event: event, action: "/events/edit/" + req.params.id, user: req.session.user });
     });
 });
 
