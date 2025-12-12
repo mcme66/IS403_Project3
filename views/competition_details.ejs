@@ -1,85 +1,96 @@
 <%- include('partials/header', { title: 'Competition Details' }) %>
 
-    <main class="container mt-4 flex-grow-1">
-        <div class="mb-4 card p-4 shadow-sm">
-            <h1>Competition: <%= competition.location %>
-            </h1>
-            <p><strong>Sanctioned:</strong>
-                <%= competition.sanctioned ? 'Yes' : 'No' %>
-            </p>
-            <p><strong>Organizer ID:</strong>
-                <%= competition.organizer_id %>
-            </p>
-        </div>
+<main class="container mt-4 flex-grow-1">
+    <div class="mb-4 card p-4 shadow-sm">
+        <h1>Competition: <%= competition.location %></h1>
+        <p><strong>Sanctioned:</strong> <%= competition.sanctioned ? 'Yes' : 'No' %></p>
+        <p><strong>Organizer ID:</strong> <%= competition.organizer_id %></p>
+    </div>
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Events</h2>
-            <% if (user && user.isOrganizer && user.organizer_id==competition.organizer_id) { %>
-                <a href="/events/add?competition_id=<%= competition.competition_id %>" class="btn btn-success">+ Add
-                    Event</a>
-                <% } %>
-        </div>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Events</h2>
+        <% if (user && user.isOrganizer && user.organizer_id==competition.organizer_id) { %>
+            <a href="/events/add?competition_id=<%= competition.competition_id %>" class="btn btn-success">+ Add Event</a>
+        <% } %>
+    </div>
 
-        <table class="table table-striped shadow-sm">
-            <thead class="table-dark">
+    <!-- 🔍 SEARCH BAR ADDED -->
+    <div class="mb-3">
+        <input
+            type="text"
+            id="eventSearch"
+            class="form-control"
+            placeholder="Search events by Title..."
+        >
+    </div>
+
+    <table class="table table-striped shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th>Title</th>
+                <th>Start</th>
+                <th>Rounds</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="eventsTable">
+            <% events.forEach(e => { %>
                 <tr>
-                    <th>Title</th>
-                    <th>Start</th>
-                    <th>Rounds</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% events.forEach(e=> { %>
-                    <tr>
-                        <td>
-                            <%= e.title %>
-                        </td>
-                        <td>
-                            <%= e.start_date_time ? new Date(e.start_date_time).toLocaleString() : '-' %>
-                        </td>
-                        <td>
-                            <%= e.rounds || '-' %>
-                        </td>
-                        <td>
-                            <% if (user && user.isOrganizer && user.organizer_id==competition.organizer_id) { %>
-                                <a href="/events/edit/<%= e.event_id %>/<%= e.competition_id %>" class="btn btn-sm btn-warning">Edit</a>
-                                <a href="/events/delete/<%= e.event_id %>" class="btn btn-sm btn-danger"
-                                    onclick="return confirm('Delete this event?')">Delete</a>
-                                <a href="/events/<%= e.event_id %>/participants" class="btn btn-sm btn-info">View
-                                    Participants</a>
-                                <% } %>
+                    <td><%= e.title %></td>
+                    <td><%= e.start_date_time ? new Date(e.start_date_time).toLocaleString() : '-' %></td>
+                    <td><%= e.rounds || '-' %></td>
+                    <td>
+                        <% if (user && user.isOrganizer && user.organizer_id==competition.organizer_id) { %>
+                            <a href="/events/edit/<%= e.event_id %>/<%= e.competition_id %>" class="btn btn-sm btn-warning">Edit</a>
+                            <a href="/events/delete/<%= e.event_id %>" class="btn btn-sm btn-danger"
+                                onclick="return confirm('Delete this event?')">Delete</a>
+                            <a href="/events/<%= e.event_id %>/participants" class="btn btn-sm btn-info">View Participants</a>
+                        <% } %>
 
-                                    <% if (user && user.isDancer) { %>
-                                        <% if (myRegistrations.includes(e.event_id)) { %>
-                                            <span class="badge bg-success">Registered</span>
-                                            <form action="/events/unregister" method="POST" style="display:inline;">
-                                                <input type="hidden" name="event_id" value="<%= e.event_id %>">
-                                                <input type="hidden" name="competition_id"
-                                                    value="<%= competition.competition_id %>">
-                                                <button type="submit"
-                                                    class="btn btn-sm btn-outline-danger">Unregister</button>
-                                            </form>
-                                            <% } else { %>
-                                                <form action="/events/register" method="POST" style="display:inline;">
-                                                    <input type="hidden" name="event_id" value="<%= e.event_id %>">
-                                                    <input type="hidden" name="competition_id"
-                                                        value="<%= competition.competition_id %>">
-                                                    <div class="input-group input-group-sm d-inline-flex w-auto">
-                                                        <select name="lead" class="form-select form-select-sm" required>
-                                                            <option value="true">Lead</option>
-                                                            <option value="false">Follow</option>
-                                                        </select>
-                                                        <button type="submit"
-                                                            class="btn btn-sm btn-primary">Register</button>
-                                                    </div>
-                                                </form>
-                                                <% } %>
-                                                    <% } %>
-                        </td>
-                    </tr>
-                    <% }) %>
-            </tbody>
-        </table>
-    </main>
+                        <% if (user && user.isDancer) { %>
+                            <% if (myRegistrations.includes(e.event_id)) { %>
+                                <span class="badge bg-success">Registered</span>
+                                <form action="/events/unregister" method="POST" style="display:inline;">
+                                    <input type="hidden" name="event_id" value="<%= e.event_id %>">
+                                    <input type="hidden" name="competition_id" value="<%= competition.competition_id %>">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Unregister</button>
+                                </form>
+                            <% } else { %>
+                                <form action="/events/register" method="POST" style="display:inline;">
+                                    <input type="hidden" name="event_id" value="<%= e.event_id %>">
+                                    <input type="hidden" name="competition_id" value="<%= competition.competition_id %>">
+                                    <div class="input-group input-group-sm d-inline-flex w-auto">
+                                        <select name="lead" class="form-select form-select-sm" required>
+                                            <option value="true">Lead</option>
+                                            <option value="false">Follow</option>
+                                        </select>
+                                        <button type="submit" class="btn btn-sm btn-primary">Register</button>
+                                    </div>
+                                </form>
+                            <% } %>
+                        <% } %>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</main>
+
+<!-- 🔍 FILTER SCRIPT -->
+<script>
+    const searchInput = document.getElementById("eventSearch");
+    const tableBody = document.getElementById("eventsTable");
+
+    searchInput.addEventListener("input", function () {
+        const filter = this.value.toLowerCase();
+        const rows = tableBody.querySelectorAll("tr");
+
+        rows.forEach(row => {
+            const titleCell = row.querySelectorAll("td")[0];
+            const titleText = titleCell.textContent.toLowerCase();
+            row.style.display = titleText.includes(filter) ? "" : "none";
+        });
+    });
+</script>
+
 <%- include('partials/footer') %>

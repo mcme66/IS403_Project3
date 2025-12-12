@@ -1,49 +1,72 @@
 <%- include('partials/header', { title: 'Competition List' }) %>
 
-  <main class="container mt-4 flex-grow-1">
+<main class="container mt-4 flex-grow-1">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2>Competitions</h2>
-      <% if (user && user.isOrganizer) { %>
-        <a href="/competitions/add" class="btn btn-success">+ Add Competition</a>
-        <% } %>
-    </div>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Competitions</h2>
+    <% if (user && user.isOrganizer) { %>
+      <a href="/competitions/add" class="btn btn-success">+ Add Competition</a>
+    <% } %>
+  </div>
 
-    <table class="table table-striped shadow-sm">
-      <thead class="table-dark">
+  <div class="mb-3">
+    <input 
+      type="text" 
+      id="locationSearch" 
+      class="form-control" 
+      placeholder="Search by Location..."
+    >
+  </div>
+
+  <table class="table table-striped shadow-sm">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Organizer ID</th>
+        <th>Location</th>
+        <th>Sanctioned</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="competitionTable">
+      <% competitions.map(c=> { %>
         <tr>
-          <th>ID</th>
-          <th>Organizer ID</th>
-          <th>Location</th>
-          <th>Sanctioned</th>
-          <th>Actions</th>
+          <td><%= c.competition_id %></td>
+          <td><%= c.organizer_id || '-' %></td>
+          <td>
+            <a href="/competitions/<%= c.competition_id %>">
+              <%= c.location %>
+            </a>
+          </td>
+          <td><%= c.sanctioned ? '✅' : '❌' %></td>
+          <td>
+            <% if (user && user.isOrganizer && user.organizer_id == c.organizer_id) { %>
+              <a href="/competitions/edit/<%= c.competition_id %>" class="btn btn-sm btn-warning">Edit</a>
+              <a href="/competitions/delete/<%= c.competition_id %>" class="btn btn-sm btn-danger"
+                onclick="return confirm('Delete this competition?')">Delete</a>
+            <% } %>
+          </td>
         </tr>
-      </thead>
-      <tbody>
-        <% competitions.map(c=> { %>
-          <tr>
-            <td>
-              <%= c.competition_id %>
-            </td>
-            <td>
-              <%= c.organizer_id || '-' %>
-            </td>
-            <td><a href="/competitions/<%= c.competition_id %>">
-                <%= c.location %>
-              </a></td>
-            <td>
-              <%= c.sanctioned ? '✅' : '❌' %>
-            </td>
-            <td>
-              <% if (user && user.isOrganizer && user.organizer_id==c.organizer_id) { %>
-                <a href="/competitions/edit/<%= c.competition_id %>" class="btn btn-sm btn-warning">Edit</a>
-                <a href="/competitions/delete/<%= c.competition_id %>" class="btn btn-sm btn-danger"
-                  onclick="return confirm('Delete this competition?')">Delete</a>
-                <% } %>
-            </td>
-          </tr>
-          <% }) %>
-      </tbody>
-    </table>
-  </main>
+      <% }) %>
+    </tbody>
+  </table>
+</main>
+
+<!-- 🔍 FILTER SCRIPT -->
+<script>
+  const searchInput = document.getElementById("locationSearch");
+  const tableBody = document.getElementById("competitionTable");
+
+  searchInput.addEventListener("input", function () {
+    const filter = this.value.toLowerCase();
+    const rows = tableBody.querySelectorAll("tr");
+
+    rows.forEach(row => {
+      const locationCell = row.querySelectorAll("td")[2];
+      const locationText = locationCell.textContent.toLowerCase();
+      row.style.display = locationText.includes(filter) ? "" : "none";
+    });
+  });
+</script>
+
 <%- include('partials/footer') %>
