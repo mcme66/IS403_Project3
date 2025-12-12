@@ -1,5 +1,8 @@
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f7f9fc;
+  color: #212529;
+  line-height: 1.6;
 }
 
 .form-card {
@@ -26,6 +29,7 @@ body {
 .table {
   border-radius: 8px;
   overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
 }
 
 .alert {
@@ -44,6 +48,7 @@ a.link-primary:hover {
 .card {
   border-radius: 0.75rem;
   border: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
 }
 
 h2 {
@@ -67,6 +72,8 @@ th {
 
 .form-control, .form-select {
   border-radius: 0.5rem !important;
+  border: 1px solid #ced4da;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .navbar-brand {
@@ -77,4 +84,9 @@ th {
 input[readonly] {
   background-color: #e9ecef;
   color: #6c757d;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.15);
 }
