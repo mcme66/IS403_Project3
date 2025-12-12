@@ -43,7 +43,7 @@
                         </td>
                         <td>
                             <% if (user && user.isOrganizer && user.organizer_id==competition.organizer_id) { %>
-                                <a href="/events/edit/<%= e.event_id %>" class="btn btn-sm btn-warning">Edit</a>
+                                <a href="/events/edit/<%= e.event_id %>/<%= e.competition_id %>" class="btn btn-sm btn-warning">Edit</a>
                                 <a href="/events/delete/<%= e.event_id %>" class="btn btn-sm btn-danger"
                                     onclick="return confirm('Delete this event?')">Delete</a>
                                 <a href="/events/<%= e.event_id %>/participants" class="btn btn-sm btn-info">View

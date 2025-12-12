@@ -73,3 +73,8 @@ th {
   font-weight: 600;
   letter-spacing: 0.5px;
 }
+
+input[readonly] {
+  background-color: #e9ecef;
+  color: #6c757d;
+}

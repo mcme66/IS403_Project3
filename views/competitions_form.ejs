@@ -6,7 +6,7 @@
     <form action="<%= action %>" method="POST" class="card p-4 shadow-sm">
       <div class="mb-3">
         <label class="form-label">Organizer ID</label>
-        <input class="form-control" name="organizer_id" value="<%= competition.Organizer_ID || '' %>">
+        <input class="form-control" name="organizer_id" value="<%= user.organizer_id || '' %>" readonly>
         <div class="form-text">Leave blank if this is your competition.</div>
       </div>
 
