@@ -2,14 +2,12 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
-      host: 'localhost',
-      user: 'postgres',
-      password: 'killme66',
-      database: 'ballroom',
-      port: 5432,
-    },
-    migrations: {
-      directory: './migrations'
+      host: process.env.RDS_HOSTNAME,
+      user: process.env.RDS_USERNAME,
+      password: process.env.RDS_PASSWORD,
+      database: process.env.RDS_DB_NAME,
+      port: process.env.RDS_PORT || 5432,
+      ssl: { rejectUnauthorized: false }
     }
   },
 
@@ -22,9 +20,6 @@ module.exports = {
       database: process.env.RDS_DB_NAME,
       port: process.env.RDS_PORT || 5432,
       ssl: { rejectUnauthorized: false }
-    },
-    migrations: {
-      directory: './migrations'
     }
   }
 };
