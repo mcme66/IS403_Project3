@@ -1,55 +1,56 @@
 <%- include('partials/header', { title: 'Competition List' }) %>
 
-<main class="container mt-4 flex-grow-1">
+<main class="page-content-wrapper">
 
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Competitions</h2>
+  <div class="page-header-container">
+    <h2 class="page-title" style="font-size: 2rem; margin: 0;">Competitions</h2>
     <% if (user && user.isOrganizer) { %>
       <a href="/competitions/add" class="btn btn-success">+ Add Competition</a>
     <% } %>
   </div>
 
-  <div class="mb-3">
+  <div class="mb-4">
     <input 
       type="text" 
       id="locationSearch" 
-      class="form-control" 
+      class="input-field" 
       placeholder="Search by Location..."
     >
   </div>
 
-  <table class="table table-striped shadow-sm">
-    <thead class="table-dark">
-      <tr>
-        <th>ID</th>
-        <th>Organizer ID</th>
-        <th>Location</th>
-        <th>Sanctioned</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody id="competitionTable">
-      <% competitions.map(c=> { %>
+  <div class="table-container">
+    <table class="styled-table">
+      <thead class="table-dark">
         <tr>
-          <td><%= c.competition_id %></td>
-          <td><%= c.organizer_id || '-' %></td>
-          <td>
-            <a href="/competitions/<%= c.competition_id %>">
-              <%= c.location %>
-            </a>
-          </td>
-          <td><%= c.sanctioned ? '✅' : '❌' %></td>
-          <td>
-            <% if (user && user.isOrganizer && user.organizer_id == c.organizer_id) { %>
-              <a href="/competitions/edit/<%= c.competition_id %>" class="btn btn-sm btn-warning">Edit</a>
-              <a href="/competitions/delete/<%= c.competition_id %>" class="btn btn-sm btn-danger"
-                onclick="return confirm('Delete this competition?')">Delete</a>
-            <% } %>
-          </td>
+          <th>ID</th>
+          <th>Organizer ID</th>
+          <th>Location</th>
+          <th>Sanctioned</th>
+          <th>Actions</th>
         </tr>
-      <% }) %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody id="competitionTable">
+        <% competitions.map(c=> { %>
+          <tr>
+            <td><%= c.competition_id %></td>
+            <td><%= c.organizer_id || '-' %></td>
+            <td>
+              <a href="/competitions/<%= c.competition_id %>">
+                <%= c.location %>
+              </a>
+            </td>
+            <td><%= c.sanctioned ? '✅' : '❌' %></td>
+            <td>
+              <% if (user && user.isOrganizer && user.organizer_id == c.organizer_id) { %>
+                <a href="/competitions/edit/<%= c.competition_id %>" class="action-btn btn-edit">Edit</a>
+                <a href="/competitions/delete/<%= c.competition_id %>" class="action-btn btn-delete"
+                  onclick="return confirm('Delete this competition?')">Delete</a>
+              <% } %>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
 </main>
 
 <!-- 🔍 FILTER SCRIPT -->

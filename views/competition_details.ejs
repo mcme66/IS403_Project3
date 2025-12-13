@@ -1,79 +1,88 @@
 <%- include('partials/header', { title: 'Competition Details' }) %>
 
-<main class="container mt-4 flex-grow-1">
-    <div class="mb-4 card p-4 shadow-sm">
-        <h1>Competition: <%= competition.location %></h1>
-        <p><strong>Sanctioned:</strong> <%= competition.sanctioned ? 'Yes' : 'No' %></p>
-        <p><strong>Organizer ID:</strong> <%= competition.organizer_id %></p>
+<main class="page-content-wrapper">
+    
+    <div class="content-card mb-4 p-4">
+        <h1 class="page-title" style="margin-bottom: 5px;">Competition: <span class="text-cyan"><%= competition.location %></span></h1>
+        <p class="lead-custom" style="margin-bottom: 0;">
+        <strong>Sanctioned:</strong> <%= competition.sanctioned ? 'Yes' : 'No' %></p>
+        <% if (user && user.isOrganizer) { %>
+            <span style="margin-left: 20px;">
+                <strong>Organizer ID:</strong> <%= competition.organizer_id %>
+            </span>
+        <% } %>
+        </p>
     </div>
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>Events</h2>
+    <div class="page-header-container">
+        <h2 class="page-title" style="font-size: 2rem; margin: 0;">Events</h2>
+
         <% if (user && user.isOrganizer && user.organizer_id==competition.organizer_id) { %>
-            <a href="/events/add?competition_id=<%= competition.competition_id %>" class="btn btn-success">+ Add Event</a>
+            <a href="/events/add?competition_id=<%= competition.competition_id %>" class="action-btn add-btn-custom">+ Add Event</a>
         <% } %>
     </div>
 
-    <!-- 🔍 SEARCH BAR ADDED -->
-    <div class="mb-3">
+    <div class="mb-4">
         <input
             type="text"
             id="eventSearch"
-            class="form-control"
+            class="input-field"
             placeholder="Search events by Title..."
         >
     </div>
 
-    <table class="table table-striped shadow-sm">
-        <thead class="table-dark">
-            <tr>
-                <th>Title</th>
-                <th>Start</th>
-                <th>Rounds</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody id="eventsTable">
-            <% events.forEach(e => { %>
+    <div class="table-container"></div>
+        <table class="styled-table">
+            <thead>
                 <tr>
-                    <td><%= e.title %></td>
-                    <td><%= e.start_date_time ? new Date(e.start_date_time).toLocaleString() : '-' %></td>
-                    <td><%= e.rounds || '-' %></td>
-                    <td>
-                        <% if (user && user.isOrganizer && user.organizer_id==competition.organizer_id) { %>
-                            <a href="/events/edit/<%= e.event_id %>/<%= e.competition_id %>" class="btn btn-sm btn-warning">Edit</a>
-                            <a href="/events/delete/<%= e.event_id %>" class="btn btn-sm btn-danger"
-                                onclick="return confirm('Delete this event?')">Delete</a>
-                            <a href="/events/<%= e.event_id %>/participants" class="btn btn-sm btn-info">View Participants</a>
-                        <% } %>
-
-                        <% if (user && user.isDancer) { %>
-                            <% if (myRegistrations.includes(e.event_id)) { %>
-                                <span class="badge bg-success">Registered</span>
-                                <form action="/events/unregister" method="POST" style="display:inline;">
-                                    <input type="hidden" name="event_id" value="<%= e.event_id %>">
-                                    <input type="hidden" name="competition_id" value="<%= competition.competition_id %>">
-                                    <button type="submit" class="btn btn-sm btn-outline-danger">Unregister</button>
-                                </form>
-                            <% } else { %>
-                                <form action="/events/register" method="POST" style="display:inline;">
-                                    <input type="hidden" name="event_id" value="<%= e.event_id %>">
-                                    <input type="hidden" name="competition_id" value="<%= competition.competition_id %>">
-                                    <div class="input-group input-group-sm d-inline-flex w-auto">
-                                        <select name="lead" class="form-select form-select-sm" required>
-                                            <option value="true">Lead</option>
-                                            <option value="false">Follow</option>
-                                        </select>
-                                        <button type="submit" class="btn btn-sm btn-primary">Register</button>
-                                    </div>
-                                </form>
-                            <% } %>
-                        <% } %>
-                    </td>
+                    <th>Title</th>
+                    <th>Start</th>
+                    <th>Rounds</th>
+                    <th>Actions</th>
                 </tr>
-            <% }) %>
-        </tbody>
-    </table>
+            </thead>
+            <tbody id="eventsTable">
+                <% events.forEach(e => { %>
+                    <tr>
+                        <td><%= e.title %></td>
+                        <td><%= e.start_date_time ? new Date(e.start_date_time).toLocaleString() : '-' %></td>
+                        <td><%= e.rounds || '-' %></td>
+                        <td>
+                            <% if (user && user.isOrganizer && user.organizer_id==competition.organizer_id) { %>
+                                <a href="/events/edit/<%= e.event_id %>/<%= e.competition_id %>" class="action-btn btn-edit">Edit</a>
+                                <a href="/events/delete/<%= e.event_id %>" class="action-btn btn-delete"
+                                    onclick="return confirm('Delete this event?')">Delete</a>
+                                <a href="/events/<%= e.event_id %>/participants" class="action-btn btn-view">View Participants</a>
+                            <% } %>
+
+                            <% if (user && user.isDancer) { %>
+                                <% if (myRegistrations.includes(e.event_id)) { %>
+                                    <span class="status-badge success-badge" style="margin-right: 5px;">Registered</span>
+
+                                    <form action="/events/unregister" method="POST" style="display:inline;">
+                                        <input type="hidden" name="event_id" value="<%= e.event_id %>">
+                                        <input type="hidden" name="competition_id" value="<%= competition.competition_id %>">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">Unregister</button>
+                                    </form>
+                                <% } else { %>
+                                    <form action="/events/register" method="POST" style="display:inline;">
+                                        <input type="hidden" name="event_id" value="<%= e.event_id %>">
+                                        <input type="hidden" name="competition_id" value="<%= competition.competition_id %>">
+                                        <div class="input-group input-group-sm d-inline-flex w-auto">
+                                            <select name="lead" class="form-select form-select-sm" required>
+                                                <option value="true">Lead</option>
+                                                <option value="false">Follow</option>
+                                            </select>
+                                            <button type="submit" class="action-btn btn-edit" style="width: auto; margin: 0;">Register</button>
+                                        </div>
+                                    </form>
+                                <% } %>
+                            <% } %>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
 </main>
 
 <!-- 🔍 FILTER SCRIPT -->

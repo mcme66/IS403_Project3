@@ -1,92 +1,706 @@
-body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f7f9fc;
-  color: #212529;
-  line-height: 1.6;
+html, body {
+    margin: 0; 
+    padding: 0;
+    width: 100%;
+    /* Set minimum height for body and html to ensure full-screen background */
+    min-height: 100%;
+    /* Use a simple font for readability */
+    font-family: Arial, sans-serif;
 }
 
-.form-card {
-  width: 100%;
-  max-width: 450px;
-  border-radius: 10px;
-  background-color: #fff;
+.login-page-bg {
+    background-image: url('/images/ballroom_bg.jpg'); 
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover; 
+    background-attachment: fixed;
+    /* This ensures the body takes up the full height of the viewport */
+    min-height: 100vh; 
+    
+    /* Center the login box (using Flexbox is the most reliable way) */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;    /* Center vertically */
 }
 
-.btn-primary {
-  background-color: #0069d9;
-  border-color: #0062cc;
+/* --- 2. LOGIN BOX STYLING (To match the image) --- */
+
+.login-container {
+    width: 300px;
+    padding: 30px 40px;
+    border-radius: 20px;
+    text-align: center;
+    
+    /* The core style for the "frosted glass" look (blur and background color) */
+    background: rgba(255, 255, 255, 0.1); /* Very light, semi-transparent white */
+    backdrop-filter: blur(10px); /* The "frosted" effect */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Light border */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); /* Soft shadow */
+
+    /* The glowing effect (Light blue glow on the box itself) */
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5); 
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.6); 
+    
+    /* Ensure the login panel is on top of the background */
+    z-index: 10;
 }
 
-.btn-primary:hover {
-  background-color: #0056b3;
-  border-color: #004999;
+.login-title {
+    color: #F0F8FF; /* Off-white/light blue color */
+    font-size: 24px;
+    margin-bottom: 30px;
+    letter-spacing: 5px;
+    /* Add subtle shadow to the text */
+    text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+}
+
+/* --- 3. INPUT FIELDS STYLING --- */
+
+.input-field {
+    width: 100%;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #F0F8FF; /* Input text color */
+    box-sizing: border-box;
+    font-size: 16px;
+    
+    /* The light, thin line effect seen in the image */
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.input-field::placeholder {
+    color: rgba(255, 255, 255, 0.6); /* Placeholder text color */
+}
+
+.input-field:focus {
+    border-color: #00FFFF; /* Highlight border on focus */
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.7);
+}
+
+/* --- 4. SIGN IN BUTTON STYLING --- */
+
+.sign-in-btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background: #00FFFF; /* Bright cyan background */
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    
+    /* Subtle hover effect */
+    text-shadow: none; 
+}
+
+.sign-in-btn:hover {
+    background: #00E5E5;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+}
+
+/* --- 5. DASHBOARD STYLING --- */
+
+/* 5a. Dashboard Background */
+.dashboard-bg {
+    background-image: url('/images/ballroom_bg.jpg'); 
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover; 
+    background-attachment: fixed;
+    min-height: 100vh; 
+    color: #F0F8FF; 
+    font-family: Arial, sans-serif;
+}
+
+/* 5b. Navbar Styling (Frosted Glass Look) */
+.navbar {
+    background: rgba(255, 255, 255, 0.05); /* Semi-transparent background */
+    backdrop-filter: blur(5px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .navbar-brand {
-  font-size: 1.4rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #F0F8FF;
 }
 
-.table {
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+.navbar-nav {
+    display: flex;
+    gap: 20px;
 }
 
-.alert {
-  border-radius: 8px;
+.nav-link {
+    color: #00FFFF; /* Cyan links */
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
 }
 
-a.link-primary {
-  text-decoration: none;
-  font-weight: 500;
+.nav-link:hover {
+    color: #FFD700; /* Gold hover effect */
 }
 
-a.link-primary:hover {
-  text-decoration: underline;
+/* 5c. Header/Banner Styling */
+.welcome-banner {
+    text-align: center;
+    padding: 60px 20px;
+    margin-bottom: 40px;
 }
 
-.card {
-  border-radius: 0.75rem;
-  border: none;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+.welcome-banner h1 {
+    color: #F0F8FF;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
 }
 
-h2 {
-  font-weight: 600;
-  margin-bottom: 1rem;
+.welcome-banner p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.1rem;
 }
 
-table {
-  background-color: #fff;
-  border-radius: 0.75rem;
-  overflow: hidden;
+/* 5d. Card Layout */
+.dashboard-wrapper {
+    max-width: 1200px; 
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-th {
-  white-space: nowrap;
+.card-grid {
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+    padding-bottom: 60px;
 }
 
-.btn {
-  border-radius: 0.5rem !important;
+/* 5e. Frosted Glass Cards (The Key Style) */
+.content-card {
+    flex: 1;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    
+    /* Frosted Glass Look */
+    background: rgba(255, 255, 255, 0.05); 
+    backdrop-filter: blur(10px); 
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    
+    /* Subtle Cyan Glow on the Cards */
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3); 
+    
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.form-control, .form-select {
-  border-radius: 0.5rem !important;
-  border: 1px solid #ced4da;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+.content-card:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 5px 25px rgba(0, 255, 255, 0.5); 
 }
 
-.navbar-brand {
-  font-weight: 600;
-  letter-spacing: 0.5px;
+.content-card .card-title-header {
+    /* 1. Font Selection: Use a cursive font for elegance */
+    font-family: 'Brush Script MT', 'Lucida Handwriting', cursive;
+    
+    /* 2. Increase Size and Spacing */
+    font-size: 3rem; 
+    font-weight: normal; 
+    margin-bottom: 20px;
+    margin-top: 10px;
+    
+    /* 3. Enhance Glow/Shine: Match the neon aesthetic */
+    color: #F0F8FF; 
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.7), /* Cyan glow */
+                 0 0 20px rgba(0, 255, 255, 0.3); /* Wider cyan glow */
+    
+    letter-spacing: 2px;
+}
+/* 5f. Button Styling (Matches the login button) */
+.view-btn {
+    padding: 10px 20px;
+    margin-top: 20px;
+    background: #00FFFF; 
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
-input[readonly] {
-  background-color: #e9ecef;
-  color: #6c757d;
+.view-btn:hover {
+    background: #00E5E5;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
 }
 
-.form-control:focus, .form-select:focus {
-  border-color: #80bdff;
-  box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.15);
+/* 5g. Footer Styling */
+.app-footer {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    width: 100%;
+    margin-top: auto; /* Pushes footer to bottom */
 }
+
+/* --- 7. FROSTED GLASS FORM STYLING --- */
+
+/* 7a. Form Card Container (Frosted Glass) */
+.frosted-form-card {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 15px;
+    
+    /* Frosted Glass Look (Matches Cards and Login) */
+    background: rgba(255, 255, 255, 0.05); 
+    backdrop-filter: blur(10px); 
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3); 
+}
+
+/* 7b. Form Group & Label Styling */
+.form-group-custom {
+    margin-bottom: 20px;
+}
+
+.form-label-custom {
+    display: block;
+    color: #F0F8FF;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+/* 7c. Reusing Input Field Style (from login page) */
+/* The .input-field class is already defined and works great here */
+
+/* 7d. Checkbox Styling */
+.form-check-custom {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.check-label-custom {
+    color: #F0F8FF;
+    margin-left: 10px;
+}
+
+.check-input-custom {
+    /* Custom style to make the checkbox visible against dark background */
+    width: 16px;
+    height: 16px;
+    border: 1px solid #00FFFF;
+    background-color: rgba(255, 255, 255, 0.1);
+    appearance: none; /* Hide default browser checkbox */
+    cursor: pointer;
+    border-radius: 3px;
+    position: relative;
+    transition: background-color 0.2s;
+}
+
+.check-input-custom:checked {
+    background-color: #00FFFF;
+}
+
+.check-input-custom:checked::after {
+    content: '✓';
+    position: absolute;
+    top: -2px;
+    left: 2px;
+    color: #000;
+    font-size: 14px;
+}
+
+/* 7e. Customizing Save Button (To give it its own block) */
+.save-btn-custom {
+    /* Reuses .view-btn but gives it its own margin */
+    display: inline-block;
+    width: 150px;
+    margin-right: 15px;
+}
+
+.ballroom-bg-management {
+    background: linear-gradient(to bottom, 
+                rgba(0, 0, 0, 0.5) 0%,   
+                rgba(0, 0, 0, 0.2) 50%,  
+                rgba(0, 0, 0, 0.5) 100%), 
+                url('/images/ballroom_bg.jpg') no-repeat center center fixed;
+    background-size: cover; 
+    min-height: 100vh; 
+    /* ... other styles ... */
+}
+
+/* In styles.css, find the .page-title rule (under 6b.) and change the color: */
+.page-title {
+    color: #FFF; /* Changed from #F0F8FF to pure white */
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+    /* You can keep the subtle cyan glow for effect: */
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5); 
+}
+
+/* Update the table header styling (Combines all previous steps) */
+.styled-table th {
+    /* Header Bar Look */
+    background-color: rgba(255, 255, 255, 0.1); 
+    color: #FFF; 
+    border-bottom: 3px solid rgba(0, 255, 255, 0.5); 
+    font-weight: 700;
+    
+    /* Centering and Sizing */
+    text-align: center; /* Centers the header text */
+    font-size: 1.1rem; /* Increased font size */
+    padding: 15px 15px; /* Ensures vertical centering and good spacing */
+}
+
+/* Update the table body row styling (Transparency) */
+.styled-table tbody tr {
+    /* Makes rows transparent */
+    background-color: transparent !important; 
+}
+
+/* Update the data cell styling (Centering and Color) */
+.styled-table td {
+    color: #FFF; /* CRITICAL: Makes the data text visible */
+    text-align: center; /* Centers the data text */
+    padding: 12px 15px; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+}
+.page-content-wrapper {
+    max-width: 1200px; /* Limits how wide the content can stretch */
+    
+    /* 1. KEY CENTERING RULE: Sets equal margin on left and right */
+    margin: 0 auto; 
+    
+    padding: 40px 20px;
+}
+
+.form-row-custom {
+    display: flex;
+    gap: 20px; /* Space between the two columns */
+    margin-bottom: 5px; /* Adjust margin since groups inside have margin */
+}
+
+.half-width {
+    flex: 1; /* Makes each column take up half the width */
+}
+
+.btn-edit, .btn-view {
+    background: #00FFFF; /* Bright Cyan */
+    color: #000;
+}
+
+.btn-edit:hover, .btn-view:hover {
+    background: #00E5E5;
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.8);
+}
+
+/* Red for Delete (CHANGE THIS TO CYAN/TEAL) */
+.btn-delete {
+    background: #00FFFF; /* *** CHANGED from #FF4500 to Bright Cyan *** */
+    color: #000;         /* Black text for contrast */
+}
+
+.btn-delete:hover {
+    /* Use the same hover effect as Edit/View for consistency */
+    background: #00E5E5;
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.8);
+}
+
+/* --- 8. Specific Form Styling Additions --- */
+
+/* a. Custom Select Field Style */
+.form-select-custom {
+    /* Inherits most styles from input-field, just ensure text is visible */
+    padding-right: 30px; /* Space for the default browser arrow */
+    appearance: menulist-button; /* Ensure browser renders default select arrow */
+}
+
+/* b. Custom Error Text Color */
+.text-danger-custom {
+    color: #FF4500; /* Bright orange/red for errors */
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+/* c. Custom Error Input Border (to replace Bootstrap's is-invalid) */
+.input-field-error {
+    border-color: #FF4500 !important;
+    box-shadow: 0 0 5px rgba(255, 69, 0, 0.7);
+}
+
+/* --- 9. DASHBOARD SPECIFIC STYLING --- */
+
+/* a. Welcome Title Adjustment */
+.welcome-title {
+    /* Ensures the title isn't huge, keeping it professional */
+    font-size: 2.2rem; 
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center header on dashboard */
+}
+
+/* b. Role Badge Styling (Replaces Bootstrap badge) */
+.role-badge {
+    background-color: rgba(0, 255, 255, 0.4); /* Subtle cyan background */
+    color: #FFF;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-left: 15px;
+    border: 1px solid rgba(0, 255, 255, 0.5);
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+}
+
+/* c. Lead Text and Color */
+.lead-custom {
+    font-size: 1.15rem;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.text-cyan {
+    color: #00FFFF;
+}
+
+/* d. Status Badges within Table */
+.status-badge {
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.success-badge {
+    background-color: rgba(0, 255, 0, 0.3);
+    color: #90EE90;
+    border: 1px solid rgba(0, 255, 0, 0.5);
+}
+
+/* e. Custom Alerts/Messages (Frosted glass container for alerts) */
+.alert-custom {
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 20px 0;
+    /* Frosted glass base (reusing content-card look but simplified) */
+    background: rgba(255, 255, 255, 0.05); 
+    backdrop-filter: blur(5px);
+    color: #F0F8FF;
+}
+
+.alert-info-custom {
+    border: 1px solid rgba(0, 255, 255, 0.5);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.alert-warning-custom {
+    border: 1px solid rgba(255, 165, 0, 0.5);
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.3);
+}
+
+.alert-link-custom {
+    color: #00FFFF; 
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.alert-link-custom:hover {
+    color: #FFD700;
+}
+
+/* f. Quick Links Card (Reuses content-card but ensures padding is right) */
+.quick-links-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+}
+
+/* --- 8. HOMEPAGE / INDEX SPECIFIC STYLING --- */
+
+/* Hero Section (Replaces Bootstrap py-5 bg-primary) */
+.hero-section {
+    padding: 60px 20px;
+    text-align: center;
+    /* Use transparent background so the main background image shows through */
+    background: rgba(0, 0, 0, 0.4); 
+    border-bottom: 2px solid rgba(0, 255, 255, 0.5); /* Subtle glowing line */
+}
+
+.container-custom {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Custom Grid for Cards (Replaces Bootstrap row g-4) */
+.card-grid-custom {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px; /* Spacing between cards */
+    justify-content: center;
+    padding: 0 20px;
+}
+
+/* Individual column/card wrapper */
+.card-grid-custom > div {
+    flex: 0 0 calc(33.333% - 25px); /* Three columns with gap */
+    max-width: calc(33.333% - 25px);
+    min-width: 250px;
+}
+
+/* Ensures cards stretch to fill height */
+.h-100 {
+    height: 100%;
+}
+
+/* Responsive adjustment for smaller screens */
+@media (max-width: 992px) {
+    .card-grid-custom > div {
+        flex: 0 0 calc(50% - 25px); /* Two columns on medium screens */
+        max-width: calc(50% - 25px);
+    }
+}
+@media (max-width: 768px) {
+    .card-grid-custom > div {
+        flex: 0 0 100%; /* Single column on small screens */
+        max-width: 100%;
+    }
+}
+.app-footer {
+    padding: 15px 0;
+    /* Frosted/dark look for the footer */
+    background: rgba(0, 0, 0, 0.4); 
+    backdrop-filter: blur(5px);
+    box-shadow: 0 -4px 15px rgba(0, 255, 255, 0.4);
+    color: #FFF;
+    text-align: center;
+    margin-top: auto; /* Pushes footer to the bottom */
+}
+
+.app-footer p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.container-custom {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Custom Add User/Competition Button */
+.add-btn-custom {
+    background: #00FF7F; /* Bright Green */
+    color: #000;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 8px;
+}
+.add-btn-custom:hover {
+    background: #00E575;
+    box-shadow: 0 0 10px rgba(0, 255, 127, 0.8);
+}
+
+/* Status Badges within Table */
+.status-badge {
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+.success-badge {
+    background-color: rgba(0, 255, 0, 0.3);
+    color: #90EE90;
+    border: 1px solid rgba(0, 255, 0, 0.5);
+}
+
+/* --- Custom Secondary/Cancel Button Style --- */
+.btn-secondary-custom {
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.1); /* Frosted background */
+    color: #F0F8FF; /* Light text */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s, border-color 0.3s;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-secondary-custom:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #00FFFF;
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+}
+
+/* Container to space out title and action button */
+.page-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding: 0 5px; /* Minor padding adjustment */
+}
+
+/* --- ORGANIZER DASHBOARD SPECIFIC STYLES --- */
+
+/* Sub-Frosted Card for individual Competitions */
+.sub-content-card {
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    /* Slightly less intense frosting than the main content-card */
+    background: rgba(255, 255, 255, 0.03); 
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.2);
+}
+
+/* Custom List Group (Replaces Bootstrap list-group) */
+.custom-list-group {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Custom List Item (Replaces list-group-item) */
+.custom-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    
+    /* Slight gradient/border effect */
+    background: rgba(0, 0, 0, 0.2);
+    border-left: 3px solid #00FFFF;
+    color: #F0F8FF;
+    transition: background-color 0.3s;
+}
+
+.custom-list-item:hover {
+    background: rgba(0, 255, 255, 0.08);
+}
+
