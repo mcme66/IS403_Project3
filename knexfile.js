@@ -5,7 +5,7 @@ module.exports = {
       host: process.env.RDS_HOSTNAME,
       user: process.env.RDS_USERNAME,
       password: process.env.RDS_PASSWORD,
-      database: "ballroom",
+      database: "postgres",
       port: process.env.RDS_PORT || 5432,
       ssl: { rejectUnauthorized: false }
     }
