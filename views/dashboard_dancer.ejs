@@ -1,14 +1,15 @@
 <%- include('partials/header', { title: 'Dancer Dashboard' }) %>
 
-    <main class="container mt-4 flex-grow-1">
-        <h1>My Dashboard (Dancer)</h1>
+<main class="page-content-wrapper">
+    <h1 class="page-title" style="text-align: center; font-size: 2rem; margin-bottom: 30px;"> My Dashboard (Dancer)</h1>
 
-        <div class="card shadow-sm mt-4">
-            <div class="card-header bg-primary text-white">
-                <h4 class="mb-0">My Registered Events</h4>
-            </div>
-            <div class="card-body p-0">
-                <table class="table table-striped mb-0">
+    <div class="content-card">
+
+        <div class="card-title-header" style="font-size: 2.5rem; margin-bottom: 25px;">
+            My Registered Events
+        </div>
+        <div class="table-container" style="border: none; box-shadow: none;">
+                <table class="styled-table">
                     <thead>
                         <tr>
                             <th>Competition</th>
@@ -38,15 +39,15 @@
                                         onsubmit="return confirm('Unregister from this event?')">
                                         <input type="hidden" name="event_id" value="<%= reg.event_id %>">
                                         <input type="hidden" name="competition_id" value="<%= reg.competition_id %>">
-                                        <button type="submit" class="btn btn-sm btn-outline-danger">Unregister</button>
+                                        <button type="submit" class="action-btn btn-delete">Unregister</button>
                                     </form>
                                 </td>
                             </tr>
                             <% }) %>
                                 <% if (registrations.length===0) { %>
                                     <tr>
-                                        <td colspan="5" class="text-center p-3">You are not registered for any events.
-                                            <a href="/competitions">Find a competition to register!</a></td>
+                                        <td colspan="5" class="text-center p-3" style="text-align: center;">You are not registered for any events.
+                                            <a href="/competitions" class="alert-link-custom">Find a competition to register!</a></td>
                                     </tr>
                                     <% } %>
                     </tbody>

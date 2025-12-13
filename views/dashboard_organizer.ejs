@@ -1,53 +1,57 @@
 <%- include('partials/header', { title: 'Organizer Dashboard' }) %>
 
-    <main class="container mt-4 flex-grow-1">
-        <h1>My Dashboard (Organizer)</h1>
+    <main class="page-content-wrapper">
+        <h1 class="page-title" style="text-align: center; font-size: 2rem; margin-bottom: 30px;">My Dashboard (Organizer)</h1>
 
-        <div class="card shadow-sm mt-4">
-            <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
-                <h4 class="mb-0">My Competitions</h4>
+        <div class="content-card">
+            <div class="card-title-header" style="font-size: 2.5rem; margin-bottom: 25px;">
+                My Competitions
+            </div>
+            <div style="text-align: right; margin-bottom: 20px;">
                 <a href="/competitions/add" class="btn btn-light btn-sm">+ New Competition</a>
             </div>
-            <div class="card-body">
+            <div class="card-body-custom" style="padding: 0;">
                 <% competitions.forEach(comp=> { %>
-                    <div class="mb-4 border rounded p-3">
+                    <div class="sub-content-card mb-4">
+
                         <div class="d-flex justify-content-between align-items-center mb-2">
-                            <h5 class="mb-0">
+                            <h5 class="card-title-header" style="font-size: 1.8rem; margin-bottom: 0;">
                                 <%= comp.location %>
                             </h5>
-                            <div>
-                                <a href="/competitions/<%= comp.competition_id %>" class="btn btn-sm btn-info">View
+                            <divclass="action-group">
+                                <a href="/competitions/<%= comp.competition_id %>" class="action-btn btn-view">View
                                     Details</a>
                                 <a href="/competitions/edit/<%= comp.competition_id %>"
-                                    class="btn btn-sm btn-warning">Edit</a>
+                                    class="action-btn btn-edit">Edit</a>
                             </div>
                         </div>
 
-                        <h6 class="text-muted mt-3">Events:</h6>
-                        <ul class="list-group">
+                        <h6 class="lead-custom mt-3" style="font-size: 1rem; color: #00FFFF; margin-bottom: 10px;">Events:</h6>
+                        
+                        <ul class="custom-list-group">
                             <% const compEvents=events.filter(e=> e.competition_id === comp.competition_id); %>
                                 <% compEvents.forEach(e=> { %>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <span>
+                                    <li class="custom-list-item">
+                                        <span class="text-cyan">
                                             <%= e.title %>
                                         </span>
-                                        <div>
+                                        <div class="d-flex align-items-center">
                                             <span class="badge bg-secondary rounded-pill me-2">
                                                 <%= e.participant_count %> Participants
                                             </span>
                                             <a href="/events/<%= e.event_id %>/participants"
-                                                class="btn btn-sm btn-outline-primary">View/Manage</a>
+                                                class="action-btn btn-view">View/Manage</a>
                                         </div>
                                     </li>
                                     <% }) %>
                                         <% if (compEvents.length===0) { %>
-                                            <li class="list-group-item text-muted">No events created yet.</li>
+                                            <li class="custom-list-item text-muted">No events created yet.</li>
                                             <% } %>
                         </ul>
                     </div>
                     <% }) %>
                         <% if (competitions.length===0) { %>
-                            <p class="text-center">You haven't created any competitions yet.</p>
+                            <p class="lead-custom text-center">You haven't created any competitions yet.</p>
                             <% } %>
             </div>
         </div>

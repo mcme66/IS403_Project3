@@ -1,58 +1,58 @@
 <%- include('partials/header') %>
 
-<main class="flex-grow-1">
-  <!-- Hero Section -->
-  <section class="py-5 text-center bg-primary text-white">
-    <div class="container">
-      <h1 class="fw-bold mb-3">Welcome to the Ballroom Management System</h1>
-      <p class="lead">Easily manage competitions, events, and participants — all in one place.</p>
+<main class="dashboard-wrapper">
+  
+  <header class="welcome-banner">
+      <h1 class="page-title fw-bold" style="font-size: 2.5rem; margin-bottom: 10px;">
+      Welcome to the Ballroom Management System</h1>
+      <p class="lead-custom" style="text-align: center; margin-bottom: 40px; color: #F0F8FF;">Easily manage competitions, events, and participants — all in one place.</p>
     </div>
-  </section>
+  </header>
 
-  <!-- Main Content -->
-  <div class="container my-5">
-    <div class="row g-4">
-      <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body text-center">
-            <h5 class="card-title">Competitions</h5>
-            <p class="card-text">Create and manage ballroom competitions.</p>
-            <a href="/competitions" class="btn btn-primary">View Competitions</a>
+  <div class="card-grid-custom">
+
+    <div class="card-grid-item">
+      <div class="content-card h-100">
+        <div class="card-body-custom text-center">
+          <h5 class="card-title-header">Competitions</h5>
+          <p class="card-text" style="color: #F0F8FF;">Create and manage ballroom competitions.</p>
+          <a href="/competitions" class="action-btn btn-view">View Competitions</a>
+        </div>
+      </div>
+    </div>
+
+    <% if (user.isDancer) { %>
+      <div class="card-grid-item">
+        <div class="content-card h-100">
+          <div class="card-body-custom text-center">
+            <h5 class="card-title-header">Dancer Dashboard</h5>
+            <p class="card-text" style="color: #F0F8FF;">View your registered events.</p>
+            <a href="/dashboard/dancer" class="action-btn btn-edit">My Dashboard</a>
           </div>
         </div>
       </div>
-      <% if (user.isDancer) { %>
-        <div class="col-md-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-              <h5 class="card-title">Dancer Dashboard</h5>
-              <p class="card-text">View your registered events.</p>
-              <a href="/dashboard/dancer" class="btn btn-success">My Dashboard</a>
-            </div>
+    <% } %>
+
+   <% if (user.isOrganizer) { %>
+      <div class="card-grid-item">
+        <div class="content-card h-100">
+          <div class="card-body-custom text-center">
+            <h5 class="card-title-header">Organizer Dashboard</h5>
+            <p class="card-text" style="color: #F0F8FF;">Manage your competitions and participants.</p>
+            <a href="/dashboard/organizer" class="action-btn btn-view">My Dashboard</a>
           </div>
         </div>
-        <% } %>
-          <% if (user.isOrganizer) { %>
-            <div class="col-md-4">
-              <div class="card h-100 shadow-sm">
-                <div class="card-body text-center">
-                  <h5 class="card-title">Organizer Dashboard</h5>
-                  <p class="card-text">Manage your competitions and participants.</p>
-                  <a href="/dashboard/organizer" class="btn btn-warning">My Dashboard</a>
-                </div>
-              </div>
-            </div>
-              <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
-                  <div class="card-body text-center">
-                    <h5 class="card-title">Users</h5>
-                    <p class="card-text">Manage registered users and participants.</p>
-                    <a href="/users" class="btn btn-primary">View Users</a>
-                  </div>
-                </div>
-              </div>
-               <% } %>
-    </div>
+      </div>
+      <div class="card-grid-item">
+        <div class="content-card h-100">
+          <div class="card-body-custom text-center">
+            <h5 class="card-title-header">Users</h5>
+            <p class="card-text" style="color: #F0F8FF;">Manage registered users and participants.</p>
+            <a href="/users" class="action-btn btn-edit">View Users</a>
+          </div>
+        </div>
+      </div>
+    <% } %>
   </div>
   </main>
 
