@@ -3,61 +3,72 @@
 <head>
   <meta charset="UTF-8">
   <title><%= user.User_ID ? 'Edit User' : 'Add User' %></title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="/styles.css">
 </head>
-<body>
-  <main class="container mt-4">
-    <h2>Add User</h2>
+
+<body class="ballroom-bg-management">
+  
+  <main class="page-content-wrapper" style="padding-top: 60px;">
+    
+    <h2 class="page-title" style="text-align: center; font-size: 2rem; margin-bottom: 30px;">
+      Add User
+    </h2>
 
     <% if (typeof error !== 'undefined' && error) { %>
-      <div class="alert alert-danger">
+      <div class="alert-custom alert-warning-custom text-center mb-4">
       <%= error %>
       </div>
     <% } %>
-    <form action="<%= action %>" method="POST" class="card p-4 shadow-sm">
-      <div class="row">
-        <div class="col-md-6">
-          <label>First Name</label>
-          <input class="form-control" name="first_name" value="<%= user.first_name || '' %>" required>
+    
+    <form action="<%= action %>" method="POST" class="frosted-form-card">
+      
+      <div class="form-row-custom">
+        <div class="half-width">
+          <label class="form-label-custom">First Name</label>
+          <input class="input-field" name="first_name" value="<%= user.first_name || '' %>" required>
         </div>
-        <div class="col-md-6">
-          <label>Last Name</label>
-          <input class="form-control" name="last_name" value="<%= user.last_name || '' %>" required>
-        </div>
-      </div>
-      <div class="row mt-2">
-        <div class="col-md-6">
-          <label>Username</label>
-          <input class="form-control" name="username" value="<%= user.username || '' %>" required>
-        </div>
-        <div class="col-md-6">
-          <label>Password</label>
-          <input class="form-control" type="password" name="password" value="<%= user.password || '' %>" required>
+        <div class="half-width">
+          <label class="form-label-custom">Last Name</label>
+          <input class="input-field" name="last_name" value="<%= user.last_name || '' %>" required>
         </div>
       </div>
-      <div class="col-md-6">
-        <label>Confirm Password</label>
-        <input class="form-control" type="password" id="confirmPassword" required>
-        <div id="passwordError" class="text-danger small mt-1" style="display:none;">
+      
+      <div class="form-row-custom">
+        <div class="half-width">
+          <label class="form-label-custom">Username</label>
+          <input class="input-field" name="username" value="<%= user.username || '' %>" required>
+        </div>
+        <div class="half-width">
+          <label class="form-label-custom">Password</label>
+          <input class="input-field" type="password" name="password" value="<%= user.password || '' %>" required>
+        </div>
+      </div>
+      
+      <div class="form-group-custom">
+        <label class="form-label-custom">Confirm Password</label>
+        <input class="input-field" type="password" id="confirmPassword" required>
+        <div id="passwordError" class="text-danger small mt-1" style="color: #FF4500; font-size: 0.9rem; margin-top: 5px; display:none;">
           Passwords do not match.
-      </div>
-</div>
-
-      <div class="row mt-2">
-        <div class="col-md-6">
-          <label>Phone</label>
-          <input class="form-control" name="phone_number" value="<%= user.phone_number || '' %>">
-        </div>
-        <div class="col-md-6">
-          <label>Birthday</label>
-          <input type="date" class="form-control" name="birthday" value="<%= user.birthday || '' %>">
         </div>
       </div>
 
-      <div class="mt-3">
-        <label>Role</label>
-        <select id="role" name="role" class="form-select">
+      <div class="form-row-custom">
+        <div class="half-width">
+          <label class="form-label-custom">Phone</label>
+          <input class="input-field" name="phone_number" value="<%= user.phone_number || '' %>">
+        </div>
+        <div class="half-width">
+          <label class="form-label-custom">Birthday</label>
+          <input type="date" class="input-field" name="birthday" value="<%= user.birthday ? new Date(user.birthday).toISOString().split('T')[0] : '' %>">
+        </div>
+      </div>
+
+      <div class="form-group-custom">
+        <label class="form-label-custom">Role</label>
+        <select id="role" name="role" class="input-field">
           <option value="User">User</option>
           <option value="Judge">Judge</option>
           <option value="Dancer">Dancer</option>
@@ -65,10 +76,18 @@
         </select>
       </div>
 
-      <div id="role-fields" class="mt-3"></div>
+      <div id="role-fields" class="form-group-custom"></div>
 
-      <button class="btn btn-primary mt-3">Save</button>
+      <div style="text-align: center; margin-top: 40px;">
+        <button type="submit" class="action-btn btn-view save-btn-custom" style="width: 150px;">
+          Save
+        </button>
+        <a href="/users" class="action-btn btn-secondary-custom" style="width: 150px; margin-left: 15px;">
+          Cancel
+        </a>
+      </div>
     </form>
+  </main>
 
 <script>
   document.getElementById("role").addEventListener("change", function () {
@@ -78,41 +97,54 @@
 
     if (role === "Judge") {
       container.innerHTML = `
-        <div class="mt-3">
-          <label>Add Code (required)</label>
-          <input class="form-control" name="add_code" required>
+        <div class="form-group-custom">
+          <label class="form-label-custom">Add Code (required)</label>
+          <input class="input-field" name="add_code" required>
         </div>
-        <div class="form-check mt-2">
-          <input class="form-check-input" type="checkbox" name="ISTD_certified">
-          <label class="form-check-label">ISTD Certified</label>
+        <div class="form-check-custom">
+          <input class="check-input-custom" type="checkbox" name="ISTD_certified" id="istd-check">
+          <label class="check-label-custom" for="istd-check">ISTD Certified</label>
         </div>`;
     }
 
     else if (role === "Dancer") {
       container.innerHTML = `
-        <div class="mt-3">
-          <label>NDCA Number</label>
-          <input class="form-control" name="NDCA_number">
+        <div class="form-group-custom">
+          <label class="form-label-custom">NDCA Number</label>
+          <input class="input-field" name="NDCA_number">
         </div>
-        <div class="mt-2">
-          <label>NDCA Expiration</label>
-          <input type="date" class="form-control" name="NDCA_expiration">
+        <div class="form-group-custom">
+          <label class="form-label-custom">NDCA Expiration</label>
+          <input type="date" class="input-field" name="NDCA_expiration">
         </div>
-        <div class="mt-2">
-          <label>Type</label>
-          <input class="form-control" name="Type">
+        <div class="form-group-custom">
+          <label class="form-label-custom">Type</label>
+          <input class="input-field" name="Type">
         </div>`;
     }
 
     else if (role === "Organizer") {
       container.innerHTML = `
-        <div class="mt-3">
-          <label>Add Code (required)</label>
-          <input class="form-control" name="add_code" required>
+        <div class="form-group-custom">
+          <label class="form-label-custom">Add Code (required)</label>
+          <input class="input-field" name="add_code" required>
         </div>
-        <div class="form-check mt-2">
-          <input class="form-check-input" type="checkbox" name="Recognized">
-          <label class="form-check-label">Recognized Organizer</label>
+        <div class="form-check-custom">
+          <input class="check-input-custom" type="checkbox" name="Recognized" id="recognized-check">
+          <label class="check-label-custom" for="recognized-check">Recognized Organizer</label>
+          <input class="input-field" name="Type">
+        </div>`;
+    }
+
+    else if (role === "Organizer") {
+      container.innerHTML = `
+        <div class="form-group-custom">
+          <label class="form-label-custom">Add Code (required)</label>
+          <input class="input-field" name="add_code" required>
+        </div>
+        <div class="form-check-custom">
+          <input class="check-input-custom" type="checkbox" name="Recognized" id="recognized-check">
+          <label class="check-label-custom" for="recognized-check">Recognized Organizer</label>
         </div>`;
     }
 
@@ -121,23 +153,23 @@
     }
   });
 </script>
-    <script>
-      const form = document.querySelector("form");
-      const passwordInput = document.querySelector("input[name='password']");
-      const confirmInput = document.getElementById("confirmPassword");
-      const errorMsg = document.getElementById("passwordError");
 
-      form.addEventListener("submit", function(e) {
-      if (passwordInput.value !== confirmInput.value) {
-        e.preventDefault();
-        errorMsg.style.display = "block";
-        confirmInput.classList.add("is-invalid");
-      } else {
-        errorMsg.style.display = "none";
-        confirmInput.classList.remove("is-invalid");
-      }
-      });
+<script>
+  const form = document.querySelector("form");
+  const passwordInput = document.querySelector("input[name='password']");
+  const confirmInput = document.getElementById("confirmPassword");
+  const errorMsg = document.getElementById("passwordError");
+
+  form.addEventListener("submit", function(e) {
+  if (passwordInput.value !== confirmInput.value) {
+    e.preventDefault();
+    errorMsg.style.display = "block";
+    confirmInput.style.borderColor = '#FF4500'; // Highlight border on error
+  } else {
+    errorMsg.style.display = "none";
+    confirmInput.style.borderColor = ''; // Reset border
+  }
+  });
 </script>
-  </main>
 </body>
 </html>

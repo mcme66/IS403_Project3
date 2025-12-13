@@ -1,58 +1,63 @@
 <%- include('partials/header', { title: 'Events List' }) %>
 
-    <main class="container mt-4 flex-grow-1">
-
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2>Events</h2>
+<main class="page-content-wrapper">
+    
+    <div class="page-header-container">
+      <h2 class="page-title" style="font-size: 2rem; margin: 0;">All Events</h2>
+      
       <% if (user && user.isOrganizer) { %>
-        <a href="/events/add" class="btn btn-success">+ Add Event</a>
-        <% } %>
+        <a href="/events/add" class="action-btn add-btn-custom">+ Add Event</a>
+      <% } %>
     </div>
 
-    <table class="table table-striped shadow-sm">
-      <thead class="table-dark">
-        <tr>
-          <th>ID</th>
-          <th>Competition ID</th>
-          <th>Title</th>
-          <th>Start</th>
-          <th>End</th>
-          <th>Rounds</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% events.forEach(e=> { %>
+    <div class="table-container">
+      <table class="styled-table">
+        <thead>
           <tr>
-            <td>
-              <%= e.event_id %>
-            </td>
-            <td>
-              <%= e.competition_id || '-' %>
-            </td>
-            <td>
-              <%= e.title %>
-            </td>
-            <td>
-              <%= e.start_date_time ? new Date(e.start_date_time).toLocaleString() : '-' %>
-            </td>
-            <td>
-              <%= e.end_date_time ? new Date(e.end_date_time).toLocaleString() : '-' %>
-            </td>
-            <td>
-              <%= e.rounds || '-' %>
-            </td>
-            <td>
-              <% if (user && user.isOrganizer) { %>
-                <a href="/events/edit/<%= e.event_id %>/<%= e.competition_id %>" class="btn btn-sm btn-warning">Edit</a>
-                <a href="/events/delete/<%= e.event_id %>" class="btn btn-sm btn-danger"
-                  onclick="return confirm('Delete this event?')">Delete</a>
-                <% } %>
-            </td>
+            <th>ID</th>
+            <th>Competition ID</th>
+            <th>Title</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Rounds</th>
+            <th>Actions</th>
           </tr>
-          <% }) %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% events.forEach(e=> { %>
+            <tr>
+              <td>
+                <%= e.event_id %>
+              </td>
+              <td>
+                <a href="/competitions/<%= e.competition_id %>" class="text-cyan">
+                  <%= e.competition_id || '-' %>
+                </a>
+              </td>
+              <td>
+                <%= e.title %>
+              </td>
+              <td>
+                <%= e.start_date_time ? new Date(e.start_date_time).toLocaleString() : '-' %>
+              </td>
+              <td>
+                <%= e.end_date_time ? new Date(e.end_date_time).toLocaleString() : '-' %>
+              </td>
+              <td>
+                <%= e.rounds || '-' %>
+              </td>
+              <td>
+                <% if (user && user.isOrganizer) { %>
+                  <a href="/events/edit/<%= e.event_id %>/<%= e.competition_id %>" class="action-btn btn-edit">Edit</a>
+                  <a href="/events/delete/<%= e.event_id %>" class="action-btn btn-delete"
+                    onclick="return confirm('Delete this event?')">Delete</a>
+                  <% } %>
+              </td>
+            </tr>
+            <% }) %>
+        </tbody>
+      </table>
+    </div>
 
   </main>
 <%- include('partials/footer') %>

@@ -1,12 +1,20 @@
 <%- include('partials/header', { title: 'Participants List' }) %>
 
-    <main class="container mt-4 flex-grow-1">
-        <h2>Participants for Event: <%= event.title %>
+<main class="page-content-wrapper">
+    
+    <div class="page-header-container" style="justify-content: flex-start; gap: 30px;">
+        <h2 class="page-title" style="font-size: 2rem; margin: 0;">
+            Participants for Event: <span class="text-cyan"><%= event.title %></span>
         </h2>
-        <a href="/competitions/<%= event.competition_id %>" class="btn btn-secondary mb-3">Back to Competition</a>
+        
+        <a href="/competitions/<%= event.competition_id %>" class="action-btn btn-secondary-custom" style="width: auto; padding: 10px 20px;">
+            Back to Competition
+        </a>
+    </div>
 
-        <table class="table table-striped shadow-sm">
-            <thead class="table-dark">
+    <div class="table-container" style="margin-top: 20px;">
+        <table class="styled-table">
+            <thead>
                 <tr>
                     <th>Name</th>
                     <th>Role</th>
@@ -21,7 +29,9 @@
                                 <%= p.last_name %>
                         </td>
                         <td>
-                            <%= p.lead ? 'Lead' : 'Follow' %>
+                            <span class="role-badge" style="background-color: rgba(0, 255, 255, 0.2);">
+                                <%= p.lead ? 'Lead' : 'Follow' %>
+                            </span>
                         </td>
                         <td>
                             <%= p.ndca_number || '-' %>
@@ -30,10 +40,14 @@
                     <% }) %>
                         <% if (participants.length===0) { %>
                             <tr>
-                                <td colspan="3">No participants registered yet.</td>
+                                <td colspan="3" style="text-align: center; color: #FF4500;">
+                                    No participants registered yet.
+                                </td>
                             </tr>
                             <% } %>
             </tbody>
         </table>
-    </main>
+    </div>
+</main>
+
 <%- include('partials/footer') %>
