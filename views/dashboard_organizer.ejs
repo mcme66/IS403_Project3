@@ -8,7 +8,7 @@
                 My Competitions
             </div>
             <div style="text-align: right; margin-bottom: 20px;">
-                <a href="/competitions/add" class="btn btn-light btn-sm">+ New Competition</a>
+                <a href="/competitions/add" class="btn add-btn-custom">+ New Competition</a>
             </div>
             <div class="card-body-custom" style="padding: 0;">
                 <% competitions.forEach(comp=> { %>
@@ -18,11 +18,12 @@
                             <h5 class="card-title-header" style="font-size: 1.8rem; margin-bottom: 0;">
                                 <%= comp.location %>
                             </h5>
+                            <br>
                             <divclass="action-group">
-                                <a href="/competitions/<%= comp.competition_id %>" class="action-btn btn-view">View
+                                <a href="/competitions/<%= comp.competition_id %>" class="btn btn-view">View
                                     Details</a>
                                 <a href="/competitions/edit/<%= comp.competition_id %>"
-                                    class="action-btn btn-edit">Edit</a>
+                                    class="btn btn-edit">Edit</a>
                             </div>
                         </div>
 
@@ -40,7 +41,7 @@
                                                 <%= e.participant_count %> Participants
                                             </span>
                                             <a href="/events/<%= e.event_id %>/participants"
-                                                class="action-btn btn-view">View/Manage</a>
+                                                class="btn btn-view">View/Manage</a>
                                         </div>
                                     </li>
                                     <% }) %>

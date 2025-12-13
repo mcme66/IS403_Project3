@@ -5,7 +5,7 @@
   <div class="page-header-container">
     <h2 class="page-title" style="font-size: 2rem; margin: 0;">Competitions</h2>
     <% if (user && user.isOrganizer) { %>
-      <a href="/competitions/add" class="btn btn-success">+ Add Competition</a>
+      <a href="/competitions/add" class="btn add-btn-custom">+ Add Competition</a>
     <% } %>
   </div>
 
@@ -35,15 +35,15 @@
             <td><%= c.competition_id %></td>
             <td><%= c.organizer_id || '-' %></td>
             <td>
-              <a href="/competitions/<%= c.competition_id %>">
+              <a class="btn btn-view" href="/competitions/<%= c.competition_id %>">
                 <%= c.location %>
               </a>
             </td>
             <td><%= c.sanctioned ? '✅' : '❌' %></td>
             <td>
               <% if (user && user.isOrganizer && user.organizer_id == c.organizer_id) { %>
-                <a href="/competitions/edit/<%= c.competition_id %>" class="action-btn btn-edit">Edit</a>
-                <a href="/competitions/delete/<%= c.competition_id %>" class="action-btn btn-delete"
+                <a href="/competitions/edit/<%= c.competition_id %>" class="btn btn-edit">Edit</a>
+                <a href="/competitions/delete/<%= c.competition_id %>" class="btn-delete"
                   onclick="return confirm('Delete this competition?')">Delete</a>
               <% } %>
             </td>

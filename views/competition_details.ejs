@@ -18,7 +18,7 @@
         <h2 class="page-title" style="font-size: 2rem; margin: 0;">Events</h2>
 
         <% if (user && user.isOrganizer && user.organizer_id==competition.organizer_id) { %>
-            <a href="/events/add?competition_id=<%= competition.competition_id %>" class="action-btn add-btn-custom">+ Add Event</a>
+            <a href="/events/add?competition_id=<%= competition.competition_id %>" class="btn add-btn-custom">+ Add Event</a>
         <% } %>
     </div>
 
@@ -49,10 +49,10 @@
                         <td><%= e.rounds || '-' %></td>
                         <td>
                             <% if (user && user.isOrganizer && user.organizer_id==competition.organizer_id) { %>
-                                <a href="/events/edit/<%= e.event_id %>/<%= e.competition_id %>" class="action-btn btn-edit">Edit</a>
+                                <a href="/events/edit/<%= e.event_id %>/<%= e.competition_id %>" class="btn btn-edit">Edit</a>
                                 <a href="/events/delete/<%= e.event_id %>" class="action-btn btn-delete"
                                     onclick="return confirm('Delete this event?')">Delete</a>
-                                <a href="/events/<%= e.event_id %>/participants" class="action-btn btn-view">View Participants</a>
+                                <a href="/events/<%= e.event_id %>/participants" class="btn btn-view">View Participants</a>
                             <% } %>
 
                             <% if (user && user.isDancer) { %>

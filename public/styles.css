@@ -8,6 +8,15 @@ html, body {
     font-family: Arial, sans-serif;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
 .login-page-bg {
     background-image: url('/images/ballroom_bg.jpg'); 
     background-repeat: no-repeat;
@@ -57,28 +66,32 @@ html, body {
 /* --- 3. INPUT FIELDS STYLING --- */
 
 .input-field {
-    width: 100%;
-    padding: 10px 15px;
-    margin-bottom: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 5px;
-    background: rgba(255, 255, 255, 0.1);
-    color: #F0F8FF; /* Input text color */
-    box-sizing: border-box;
-    font-size: 16px;
-    
-    /* The light, thin line effect seen in the image */
-    outline: none;
-    transition: border-color 0.3s;
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+
+  /* Solid surface */
+  background-color: #111827; /* deep neutral */
+  color: #f9fafb;
+
+  border: 1px solid #2b3948;
+  border-radius: 8px;
+
+  font-size: 0.95rem;
+  box-sizing: border-box;
+
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 .input-field::placeholder {
-    color: rgba(255, 255, 255, 0.6); /* Placeholder text color */
+  color: #9ca3af;
 }
 
 .input-field:focus {
-    border-color: #00FFFF; /* Highlight border on focus */
-    box-shadow: 0 0 5px rgba(0, 255, 255, 0.7);
+  background-color: #0f172a;
+  border-color: #2dd4bf;
+  box-shadow: 0 0 0 2px rgba(45, 212, 191, 0.25);
 }
 
 /* --- 4. SIGN IN BUTTON STYLING --- */
@@ -184,46 +197,38 @@ html, body {
     padding-bottom: 60px;
 }
 
-/* 5e. Frosted Glass Cards (The Key Style) */
 .content-card {
-    flex: 1;
-    padding: 30px;
-    border-radius: 15px;
-    text-align: center;
-    
-    /* Frosted Glass Look */
-    background: rgba(255, 255, 255, 0.05); 
-    backdrop-filter: blur(10px); 
-    border: 1px solid rgba(255, 255, 255, 0.1); 
-    
-    /* Subtle Cyan Glow on the Cards */
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3); 
-    
-    transition: transform 0.3s, box-shadow 0.3s;
+  flex: 1;
+  padding: 28px;
+  border-radius: 14px;
+  text-align: center;
+
+  /* Solid, calming surface */
+  background-color: #1f2933; /* dark neutral */
+  border: 1px solid #2b3948;
+
+  /* Subtle depth (not glow) */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .content-card:hover {
-    transform: translateY(-5px); 
-    box-shadow: 0 5px 25px rgba(0, 255, 255, 0.5); 
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
 }
 
 .content-card .card-title-header {
-    /* 1. Font Selection: Use a cursive font for elegance */
-    font-family: 'Brush Script MT', 'Lucida Handwriting', cursive;
-    
-    /* 2. Increase Size and Spacing */
-    font-size: 3rem; 
-    font-weight: normal; 
-    margin-bottom: 20px;
-    margin-top: 10px;
-    
-    /* 3. Enhance Glow/Shine: Match the neon aesthetic */
-    color: #F0F8FF; 
-    text-shadow: 0 0 10px rgba(0, 255, 255, 0.7), /* Cyan glow */
-                 0 0 20px rgba(0, 255, 255, 0.3); /* Wider cyan glow */
-    
-    letter-spacing: 2px;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+  margin-top: 0;
+
+  color: #f9fafb;
+  letter-spacing: 0.5px;
 }
+
 /* 5f. Button Styling (Matches the login button) */
 .view-btn {
     padding: 10px 20px;
@@ -351,33 +356,58 @@ html, body {
     text-shadow: 0 0 10px rgba(0, 255, 255, 0.5); 
 }
 
-/* Update the table header styling (Combines all previous steps) */
-.styled-table th {
-    /* Header Bar Look */
-    background-color: rgba(255, 255, 255, 0.1); 
-    color: #FFF; 
-    border-bottom: 3px solid rgba(0, 255, 255, 0.5); 
-    font-weight: 700;
-    
-    /* Centering and Sizing */
-    text-align: center; /* Centers the header text */
-    font-size: 1.1rem; /* Increased font size */
-    padding: 15px 15px; /* Ensures vertical centering and good spacing */
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #1f2933; /* solid table background */
+  border-radius: 10px;
+  overflow: hidden; /* keeps rounded corners clean */
 }
 
-/* Update the table body row styling (Transparency) */
+/* ===== Header ===== */
+.styled-table thead th {
+  background-color: #111827; /* darker header */
+  color: #f9fafb;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-align: center;
+  padding: 14px 16px;
+  border-bottom: 2px solid #2dd4bf;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ===== Body Rows ===== */
 .styled-table tbody tr {
-    /* Makes rows transparent */
-    background-color: transparent !important; 
+  background-color: #1f2933;
+  transition: background-color 0.15s ease;
 }
 
-/* Update the data cell styling (Centering and Color) */
-.styled-table td {
-    color: #FFF; /* CRITICAL: Makes the data text visible */
-    text-align: center; /* Centers the data text */
-    padding: 12px 15px; 
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+/* Zebra striping */
+.styled-table tbody tr:nth-child(even) {
+  background-color: #24303c; /* subtle contrast */
 }
+
+/* Hover for clarity */
+.styled-table tbody tr:hover {
+  background-color: #2b3948;
+}
+
+/* ===== Cells ===== */
+.styled-table td {
+  color: #e5e7eb;
+  text-align: center;
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  vertical-align: middle;
+}
+
+/* Remove bottom border on last row */
+.styled-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
 .page-content-wrapper {
     max-width: 1200px; /* Limits how wide the content can stretch */
     
@@ -407,16 +437,63 @@ html, body {
     box-shadow: 0 0 8px rgba(0, 255, 255, 0.8);
 }
 
-/* Red for Delete (CHANGE THIS TO CYAN/TEAL) */
 .btn-delete {
-    background: #00FFFF; /* *** CHANGED from #FF4500 to Bright Cyan *** */
-    color: #000;         /* Black text for contrast */
+  display: inline-block;        /* makes it a box */
+  padding: 0.35rem 0.75rem;     /* small button size */
+  background-color: #ff7373;
+  color: #000;
+  text-decoration: none;        /* removes underline for <a> */
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn-delete:hover {
-    /* Use the same hover effect as Edit/View for consistency */
-    background: #00E5E5;
-    box-shadow: 0 0 8px rgba(0, 255, 255, 0.8);
+  background-color: #d66464;
+  box-shadow: 0 0 6px rgba(255, 115, 115, 0.7);
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+.btn:hover {
+  text-decoration: none;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-edit {
+  background-color: #4f83ff;
+  color: #ffffff;
+}
+
+.btn-edit:hover {
+  background-color: #3a6ee8;
+  box-shadow: 0 0 6px rgba(79, 131, 255, 0.6);
+}
+
+.btn-view {
+  background-color: #fffa65;
+  color: #003333;
+}
+
+.btn-view:hover {
+  background-color: #d6d44c;
+  box-shadow: 0 0 6px rgba(45, 212, 191, 0.6);
 }
 
 /* --- 8. Specific Form Styling Additions --- */
@@ -730,6 +807,17 @@ html, body {
 .check-input-custom:checked {
     background: #00FFFF; /* Cyan fill */
     border-color: #00FFFF;
+}
+
+.link-white {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.link-white:hover,
+.link-white:focus {
+  color: #ffffff;
+  text-decoration: none;
 }
 
 /* Custom Checkmark */

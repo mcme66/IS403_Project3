@@ -3,7 +3,7 @@
     <main class="page-content-wrapper">
     <div class="page-header-container">
       <h2 class="page-title" style="font-size: 2rem; margin: 0;">Registered Users</h2>
-      <a href="/users/add" class="action-btn add-btn-custom">+ Add User</a>
+      <a href="/users/add" class="btn add-btn-custom">+ Add User</a>
     </div>
 
     <% if (users.length===0) { %>
@@ -41,8 +41,8 @@
                     <%= user.birthday || 'N/A' %>
                   </td>
                   <td>
-                    <a href="/users/edit/<%= user.user_id %>" class="action-btn btn-edit">Edit</a>
-                    <a href="/users/delete/<%= user.user_id %>" class="action-btn btn-delete"
+                    <a href="/users/edit/<%= user.user_id %>" class="btn btn-edit">Edit</a>
+                    <a href="/users/delete/<%= user.user_id %>" class="btn-delete"
                       onclick="return confirm('Delete this user?')">Delete</a>
                   </td>
                 </tr>
