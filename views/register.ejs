@@ -4,54 +4,68 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Register - Ballroom App</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="/css/styles.css">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/styles.css"> 
 </head>
-<body class="bg-light">
-  <div class="container vh-100 d-flex align-items-center justify-content-center">
-    <div class="card shadow-lg p-4 form-card">
-      <h2 class="text-center mb-4">Create Account</h2>
-      <% if (error_message) { %>
-        <div class="alert alert-danger text-center"><%= error_message %></div>
-      <% } %>
-      <form method="POST" action="/register">
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label class="form-label">First Name</label>
-            <input type="text" class="form-control" name="first_name" required>
-          </div>
-          <div class="col-md-6 mb-3">
-            <label class="form-label">Last Name</label>
-            <input type="text" class="form-control" name="last_name" required>
-          </div>
+
+<body class="login-page-bg">
+  
+  <div class="login-container">
+    
+    <h2 class="login-title">Create Account</h2>
+    
+    <% if (error_message) { %>
+      <div class="alert-custom alert-warning-custom text-center mb-4"><%= error_message %></div>
+    <% } %>
+    
+    <form method="POST" action="/register">
+      
+      <div class="form-row-custom">
+        <div class="half-width">
+          <label class="form-label-custom">First Name</label>
+          <input type="text" class="input-field" name="first_name" required>
         </div>
-        <div class="mb-3">
-          <label class="form-label">Username</label>
-          <input type="text" class="form-control" name="username" required>
+        <div class="half-width">
+          <label class="form-label-custom">Last Name</label>
+          <input type="text" class="input-field" name="last_name" required>
         </div>
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label class="form-label">Password</label>
-            <input type="password" class="form-control" name="password" required>
-          </div>
-          <div class="col-md-6 mb-3">
-            <label class="form-label">Confirm Password</label>
-            <input type="password" class="form-control" name="confirmPassword" required>
-          </div>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Phone Number</label>
-          <input type="text" class="form-control" name="phone">
-        </div>
-        <div class="mb-4">
-          <label class="form-label">Birthday</label>
-          <input type="date" class="form-control" name="birthday">
-        </div>
-        <button type="submit" class="btn btn-success w-100">Register</button>
-      </form>
-      <div class="text-center mt-3">
-        <p>Already have an account? <a href="/login" class="link-primary">Login</a></p>
       </div>
+      
+      <div class="form-group-custom">
+        <label class="form-label-custom">Username</label>
+        <input type="text" class="input-field" name="username" required>
+      </div>
+      
+      <div class="form-row-custom">
+        <div class="half-width">
+          <label class="form-label-custom">Password</label>
+          <input type="password" class="input-field" name="password" required>
+        </div>
+        <div class="half-width">
+          <label class="form-label-custom">Confirm Password</label>
+          <input type="password" class="input-field" name="confirmPassword" required>
+        </div>
+      </div>
+      
+      <div class="form-group-custom">
+        <label class="form-label-custom">Phone Number</label>
+        <input type="text" class="input-field" name="phone">
+      </div>
+      
+      <div class="form-group-custom" style="margin-bottom: 30px;">
+        <label class="form-label-custom">Birthday</label>
+        <input type="date" class="input-field" name="birthday">
+      </div>
+      
+      <button type="submit" class="sign-in-btn">Register</button>
+    </form>
+    
+    <div class="text-center mt-3">
+      <p style="color: rgba(255, 255, 255, 0.7);">Already have an account? 
+        <a href="/login" class="alert-link-custom">Login</a>
+      </p>
     </div>
   </div>
 </body>

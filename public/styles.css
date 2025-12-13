@@ -704,3 +704,47 @@ html, body {
     background: rgba(0, 255, 255, 0.08);
 }
 
+/* --- Custom Checkbox/Radio Styling --- */
+.form-check-custom {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-left: 0; /* Remove default bootstrap padding */
+}
+
+.check-input-custom {
+    /* Base input field styling */
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s;
+}
+
+/* Checked state */
+.check-input-custom:checked {
+    background: #00FFFF; /* Cyan fill */
+    border-color: #00FFFF;
+}
+
+/* Custom Checkmark */
+.check-input-custom:checked::after {
+    content: '✓';
+    font-size: 14px;
+    color: #000; /* Black checkmark */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.check-label-custom {
+    color: #F0F8FF;
+    font-weight: 500;
+    cursor: pointer;
+}
